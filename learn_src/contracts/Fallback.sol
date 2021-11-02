@@ -5,12 +5,10 @@ contract Fallback {
     event Log(uint gas);
 
     // Fallback function must be declared as external.
-    fallback() external payable {
-        // send / transfer (forwards 2300 gas to this fallback function)
-        // call (forwards all of the gas)
-        emit Log(gasleft());
-    }
 
+    // write a fallback function
+    // write a log event when the fallback function is called.
+    
     // Helper function to check the balance of this contract
     function getBalance() public view returns (uint) {
         return address(this).balance;
