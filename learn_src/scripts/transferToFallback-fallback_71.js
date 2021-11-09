@@ -27,16 +27,14 @@ async function main() {
   console.log('Fallback Contract deployed to:', contract.address);
   try {
     const balBeforeTransfer = new BN((await contract2.getBalance()).toString());
-    console.log(
-      `Balance before Transfer : ${balBeforeTransfer} wei`,
-    );
+    console.log(`Balance before Transfer : ${balBeforeTransfer} wei`);
     console.log(`Calling transferToFallback()`);
-    const receipt = await contract.transferToFallback(contract2.address, {value:ethers.utils.parseUnits("1", "ether").toHexString()});
+    const receipt = await contract.transferToFallback(contract2.address, {
+      value: ethers.utils.parseUnits('1', 'ether').toHexString(),
+    });
     const balAfterTransfer = new BN((await contract2.getBalance()).toString());
-    console.log(
-      `Balance after Transfer : ${balAfterTransfer} wei`,
-    );
-    if(balAfterTransfer.gt(balBeforeTransfer)) {
+    console.log(`Balance after Transfer : ${balAfterTransfer} wei`);
+    if (balAfterTransfer.gt(balBeforeTransfer)) {
       console.log('Test Passed!');
       process.exit(0);
     } else {

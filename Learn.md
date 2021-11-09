@@ -9,34 +9,35 @@ It is executed either when
 
 `fallback` has a 2300 gas limit when called by `transfer` or `send`.
 
+Code this `fallback()` function in `Fallback` contract:
+
 ```
-    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.3;
+        fallback() external payable {}
+```
 
-    contract Fallback {
-        event Log(uint gas);
+Note that `fallback()` function has to be `external`.
 
-        // Fallback function must be declared as external.
-        fallback() external payable {
-            // send / transfer (forwards 2300 gas to this fallback function)
-            // call (forwards all of the gas)
-            emit Log(gasleft());
-        }
+Also, write this test function in `Fallback` contract:
 
-        // Helper function to check the balance of this contract
-        function getBalance() public view returns (uint) {
-            return address(this).balance;
-        }
-    }
-
-    contract SendToFallback {
-        function transferToFallback(address payable _to) public payable {
-            _to.transfer(msg.value);
-        }
-
-        function callFallback(address payable _to) public payable {
-            (bool sent, ) = _to.call{value: msg.value}("");
-            require(sent, "Failed to send Ether");
-        }
+```
+    function getBalance() public view returns (uint) {
+        return address(this).balance;
     }
 ```
+
+## Sending ether to fallback
+
+Let's now send `ether` to `Fallback` contract.
+Code this up in `SendToFallback` contract:
+
+```
+    function transferToFallback(address payable _to) public payable {
+        _to.transfer(msg.value);
+    }
+```
+
+Here we are just sending the `ether` to `_to` address using `transfer()` function.
+
+Hit `Run`.
+It should run a script to call this `transfertoFallback()` with the address of the `Fallback` contract and 1 ether.
+If you wrote the `fallback()` function correctly the logs should show the balance of the `Fallback` increased after transfer.
