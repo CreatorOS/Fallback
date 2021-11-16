@@ -2,11 +2,21 @@
   "version": "1.0.0",
   "defaultFile": "contracts/Fallback.sol",
   "environment": "solidity",
-  "setupCommands": ["npm i", "npx hardhat compile"],
+  "setupCommands": [
+    "npx hardhat compile"
+  ],
   "compileCommand": "npx hardhat compile",
   "tests": [
-    { "itShould": "Compile", "command": "sh learn_tests/70.sh" },
-    { "itShould": "Call transferToFallback", "command": "sh learn_tests/71.sh" }
+    {
+      "itShould": "Compile",
+      "command": "sh learn_tests/70.sh"
+    },
+    {
+      "itShould": "Call transferToFallback",
+      "command": "sh learn_tests/71.sh"
+    }
   ],
-  "learnerAccessibleFileList": ["contracts/*"]
+  "learnerAccessibleFileList": [
+    "contracts/*"
+  ]
 }
